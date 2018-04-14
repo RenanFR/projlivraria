@@ -7,19 +7,20 @@
 <title>Cadastrar novo livro</title>
 </head>
 <body>
-	<form action="/produtos/cadastrar">
+	<form action="/projlivraria/produtos/cadastrar">
 		<div>
 			<label>Título</label>
 			<input type="text" name="titulo">
 		</div>
 		<div>
 			<label>Descrição</label>
-			<textarea rows="5" cols="2" name="descricao"></textarea>
+			<textarea rows="5" cols="5" name="descricao"></textarea>
 		</div>
 		<div>
 			<label>Número de páginas</label>
 			<input type="number" name="numeroPaginas">
 		</div>
+		<button type="submit">Cadastrar</button>
 	</form>
 </body>
 </html>

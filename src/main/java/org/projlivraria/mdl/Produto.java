@@ -1,6 +1,11 @@
 package org.projlivraria.mdl;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity//Informa que o modelo será mapeado p/ base de dados
 public class Produto {
+	@Id//Informa o campo que será o identificador p/ essa tabela
 	private String titulo;
 	private String descricao;
 	private int numeroPaginas;

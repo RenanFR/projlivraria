@@ -6,13 +6,12 @@ public class DispatcherServlet extends AbstractAnnotationConfigDispatcherServlet
 	//Necessário implementar interface de configuração p/ honrar os parâmetros necessários de inicialização 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[]{ConfiguracaoAplicacao.class};
+		return new Class[]{ConfiguracaoAplicacao.class, ConfigJPA.class};//Classes de configuração que devem ser lidas
 	}
 
 	@Override
