@@ -1,5 +1,10 @@
 package org.projlivraria.cfg;
 
+import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration.Dynamic;
+
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class DispatcherServlet extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -18,5 +23,14 @@ public class DispatcherServlet extends AbstractAnnotationConfigDispatcherServlet
 	protected String[] getServletMappings() {
 		return new String[]{"/"};//Informa a partir de qual mapeamento o framework atenderá requisições
 	}
-
+	@Override
+	protected Filter[] getServletFilters() {//Filtros que serão carregados
+		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+		characterEncodingFilter.setEncoding("UTF-8");//Filtro p/ codificação de caracteres
+		return new Filter[]{characterEncodingFilter};
+	}
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		registration.setMultipartConfig(new MultipartConfigElement(""));//Determina a forma padrão como os arquivos serão recebidos
+	}
 }
