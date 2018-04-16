@@ -8,7 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Livros</title>
 </head>
 <body>
@@ -17,13 +17,13 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Título</th>
-				<th>Descrição</th>
-				<th>Número de páginas</th>
-				<th>Publicação do livro</th>
-				<th>Preço E-book</th>
-				<th>Preço Impresso</th>
-				<th>Preço Combo</th>
+				<th>Tï¿½tulo</th>
+				<th>Descriï¿½ï¿½o</th>
+				<th>Nï¿½mero de pï¿½ginas</th>
+				<th>Publicaï¿½ï¿½o do livro</th>
+				<th>Preï¿½o E-book</th>
+				<th>Preï¿½o Impresso</th>
+				<th>Preï¿½o Combo</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -36,10 +36,10 @@
 					<td>${l.numeroPaginas }</td>
 					<td><fmt:formatDate value="${l.dataPublicacao.time}" pattern="dd/MM/yyyy"/></td>
 						<c:forEach items="${l.precos}" var="p">
-							<form:form servletRelativeAction="${s:mvcUrl('CC#adicionar').build()}">
+							<form:form servletRelativeAction="${s:mvcUrl('CC#adicionar').arg(0, l.titulo).arg(1, p.tipoPreco).build()}">
 								<input type="text" name="tipoLivro" value="${p.tipoPreco}"	/>
 								<input type="hidden" name="livroId" value="${l.titulo}"	/>
-	<%-- 							<td>Preço ${p.tipoPreco} do livro: ${p.valor} <br></td> --%>
+	<%-- 							<td>Preï¿½o ${p.tipoPreco} do livro: ${p.valor} </td> --%>
 								<input type="submit" value="Adicionar ao carrinho"	/>
 							</form:form>
 						</c:forEach>

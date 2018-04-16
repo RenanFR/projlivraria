@@ -8,5 +8,10 @@ public class ItemCarrinho {
 		this.produto = produto;
 		this.tipoPreco = tipoPreco;
 	}
+
+	@Override
+	public String toString() {
+		return "ItemCarrinho [produto=" + produto + ", tipoPreco=" + tipoPreco + "]";
+	}
 	
 }

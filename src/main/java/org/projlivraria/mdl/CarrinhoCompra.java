@@ -3,9 +3,13 @@ package org.projlivraria.mdl;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 @Component
+@Scope(value=WebApplicationContext.SCOPE_SESSION, proxyMode=ScopedProxyMode.TARGET_CLASS)//A instância tem escopo sessão
 public class CarrinhoCompra {
 	private Map<ItemCarrinho, Integer> itensCarrinho = new LinkedHashMap<>();
 	

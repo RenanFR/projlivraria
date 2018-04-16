@@ -8,6 +8,7 @@ import org.projlivraria.mdl.TipoPreco;
 import org.projlivraria.util.SalvadorArquivo;
 import org.projlivraria.valid.ProdutoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/produtos")//Caminho base da controladora
+@Scope(value=WebApplicationContext.SCOPE_REQUEST)//Os dados enviados/recebidos pela controladora tem escopo requisição
 public class ProdutosController {
 	@Autowired//Será injetado pelo Spring
 	private ProdutoDAO produtoDAO;

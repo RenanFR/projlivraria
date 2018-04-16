@@ -18,7 +18,7 @@ public class ProdutoDAO {
 		entityManager.persist(produto);//Método p/ persistência na base
 	}
 	public List<Produto> todos() {
-		return entityManager.createQuery("SELECT p FROM Produto p JOIN FETCH p.precos prc", Produto.class)
+		return entityManager.createQuery("SELECT DISTINCT(p) FROM Produto p JOIN FETCH p.precos prc", Produto.class)
 				.getResultList();
 	}
 	public Produto livroPorNome(String nomeLivro) {
@@ -30,5 +30,10 @@ public class ProdutoDAO {
 	}
 	public Produto buscaPorId(String livroId) {
 		return entityManager.find(Produto.class, livroId);
+	}
+	public Produto buscaPorTitulo(String livroId) {
+		return entityManager.createQuery("SELECT p FROM Produto p JOIN FETCH p.precos prc "
+				+ "WHERE p.titulo LIKE :tituloLivro", Produto.class)
+				.setParameter("tituloLivro", livroId).getSingleResult();
 	}
 }

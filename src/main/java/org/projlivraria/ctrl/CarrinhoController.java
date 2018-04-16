@@ -20,7 +20,7 @@ public class CarrinhoController {
 	@RequestMapping(value="/adc", method=RequestMethod.POST)
 	public ModelAndView adicionar(String livroId, TipoPreco tipoLivro) {
 		ModelAndView view = new ModelAndView("carrinho/meuCarrinho");
-		ItemCarrinho itemCarrinho = new ItemCarrinho(produtoDAO.buscaPorId(livroId), tipoLivro);
+		ItemCarrinho itemCarrinho = new ItemCarrinho(produtoDAO.buscaPorTitulo(livroId), tipoLivro);
 		carrinhoCompra.adcCarrinho(itemCarrinho);
 		return view;
 	}
