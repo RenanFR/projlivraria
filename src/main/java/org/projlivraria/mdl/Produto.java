@@ -1,5 +1,6 @@
 package org.projlivraria.mdl;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
@@ -57,6 +58,30 @@ public class Produto {
 	public void setCaminhoSumario(String caminhoSumario) {
 		this.caminhoSumario = caminhoSumario;
 	}
+	public BigDecimal precoPara(TipoPreco tipoPreco) {
+		return precos.stream().filter(preco -> preco.getTipoPreco().equals(tipoPreco)).findFirst().get().getValor();	
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + titulo.hashCode();
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (!titulo.equals(other.titulo))
+			return false;
+		return true;
+	}	
 	@Override
 	public String toString() {
 		return "Produto [titulo=" + titulo + ", descricao=" + descricao + ", numeroPaginas=" + numeroPaginas + "]";
