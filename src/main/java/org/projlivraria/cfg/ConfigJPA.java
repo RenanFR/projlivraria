@@ -3,8 +3,10 @@ package org.projlivraria.cfg;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -15,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class ConfigJPA {
 	//Permitirá a injeção do gerenciador de entidades por meio de sua fábrica
 	@Bean
-	public LocalContainerEntityManagerFactoryBean factory(){
+	public LocalContainerEntityManagerFactoryBean factory(DataSource dataSource){//Irá injetar o Profile a ser utilizado
 		LocalContainerEntityManagerFactoryBean bean =//Será invocado quando o gerenciador de entidades for invocado
 				new LocalContainerEntityManagerFactoryBean();
 		Properties properties = new Properties();//Irá armazenar algumas propriedades/parâmetros p/ o funcionamento da JPA
@@ -23,15 +25,22 @@ public class ConfigJPA {
 		properties.setProperty("hibernate.show_sql", "true");//Denota se as operações SQL geradas pela JPA aparecerão no console
 		properties.setProperty("hibernate.hbm2ddl.auto", "update");//Estratégia de mapeamento objeto-relacional
 		bean.setJpaProperties(properties);//Adiciona as propriedades configuradas acima a Factory
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();//Irá armazenar os parâmetros de conexão com a base
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");//Irá buscar da biblioteca do provedor que deve estar nas dependências
-		dataSource.setUrl("jdbc:mysql://localhost:3306/projlivraria");//Caminho da base de dados
-		dataSource.setUsername("root"); dataSource.setPassword("root");//Usuário e senha p/ acesso
 		bean.setDataSource(dataSource);//Adiciona a fábrica os parâmetros da fonte de dados configurados acima
 		JpaVendorAdapter adapter = new HibernateJpaVendorAdapter();//A implementação da especificação JPA que iremos usar
 		bean.setJpaVendorAdapter(adapter);//Informa a implementação da especificação que será usada no gerenciador
 		bean.setPackagesToScan("org.projlivraria.mdl");//Onde irá buscar os modelos p/ mapeamento objeto relacional
 		return bean;
+	}
+	@Bean
+	@Profile("producao")
+	private DriverManagerDataSource dataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();//Irá armazenar os parâmetros de conexão com a base
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");//Irá buscar da biblioteca do provedor que deve estar nas dependências
+		dataSource.setUrl("jdbc:mysql://localhost:3306/projlivraria");//Caminho da base de dados
+		dataSource.setUsername("root"); 
+//		dataSource.setPassword("root");//Usuário e senha p/ acesso
+		dataSource.setPassword("Callable");//Usuário e senha p/ acesso
+		return dataSource;
 	}
 	@Bean
 	public JpaTransactionManager transactionManager(EntityManagerFactory factory){//Inicializa o recurso responsável por gerenciar transações

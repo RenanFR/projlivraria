@@ -1,5 +1,6 @@
 package org.projlivraria.mdl;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
@@ -10,8 +11,15 @@ import javax.persistence.Id;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 @Entity//Informa que o modelo será mapeado p/ base de dados
-public class Produto {
+@JsonSerialize()
+public class Produto implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id//Informa o campo que será o identificador p/ essa tabela
 	private String titulo;
 	private String descricao;
@@ -85,5 +93,17 @@ public class Produto {
 	@Override
 	public String toString() {
 		return "Produto [titulo=" + titulo + ", descricao=" + descricao + ", numeroPaginas=" + numeroPaginas + "]";
+	}
+	public Produto() {
+	}
+	public Produto(String titulo, String descricao, int numeroPaginas, Calendar dataPublicacao, List<Preco> precos,
+			String caminhoSumario) {
+		super();
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.numeroPaginas = numeroPaginas;
+		this.dataPublicacao = dataPublicacao;
+		this.precos = precos;
+		this.caminhoSumario = caminhoSumario;
 	}
 }

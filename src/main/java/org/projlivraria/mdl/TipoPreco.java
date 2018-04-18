@@ -1,5 +1,7 @@
 package org.projlivraria.mdl;
 
-public enum TipoPreco {
+import java.io.Serializable;
+
+public enum TipoPreco implements Serializable {
 	EBOOK, IMPRESSO, COMBO
 }

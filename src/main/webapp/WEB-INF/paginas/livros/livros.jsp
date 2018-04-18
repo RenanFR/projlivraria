@@ -21,9 +21,8 @@
 				<th>Descri��o</th>
 				<th>N�mero de p�ginas</th>
 				<th>Publica��o do livro</th>
-				<th>Pre�o E-book</th>
-				<th>Pre�o Impresso</th>
-				<th>Pre�o Combo</th>
+				<th>Preços</th>
+				<th>Situação compra</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,14 +34,19 @@
 					<td>${l.descricao }</td>
 					<td>${l.numeroPaginas }</td>
 					<td><fmt:formatDate value="${l.dataPublicacao.time}" pattern="dd/MM/yyyy"/></td>
+					<td>
 						<c:forEach items="${l.precos}" var="p">
 							<form:form servletRelativeAction="${s:mvcUrl('CC#adicionar').arg(0, l.titulo).arg(1, p.tipoPreco).build()}">
 								<input type="text" name="tipoLivro" value="${p.tipoPreco}"	/>
 								<input type="hidden" name="livroId" value="${l.titulo}"	/>
-	<%-- 							<td>Pre�o ${p.tipoPreco} do livro: ${p.valor} </td> --%>
 								<input type="submit" value="Adicionar ao carrinho"	/>
 							</form:form>
-						</c:forEach>
+						</c:forEach>					
+					</td>
+					<td>
+						${respostaObtida}
+						${erroObtido}
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
