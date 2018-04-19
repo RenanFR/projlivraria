@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement//Habilita o controle de transações
 public class ConfigJPA {
 	//Permitirá a injeção do gerenciador de entidades por meio de sua fábrica
-	@Bean
+	@Bean//
 	public LocalContainerEntityManagerFactoryBean factory(DataSource dataSource){//Irá injetar o Profile a ser utilizado
 		LocalContainerEntityManagerFactoryBean bean =//Será invocado quando o gerenciador de entidades for invocado
 				new LocalContainerEntityManagerFactoryBean();
