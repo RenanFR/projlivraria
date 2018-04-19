@@ -2,6 +2,7 @@ package org.projlivraria.cfg;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.projlivraria.ctrl.HomeController;
 import org.projlivraria.dao.ProdutoDAO;
@@ -18,6 +19,8 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
@@ -98,5 +101,18 @@ public class ConfiguracaoAplicacao extends WebMvcConfigurerAdapter {
 	@Bean//Irá armazenar a localização em Cookie 
 	public LocaleResolver localeResolver() {
 		return new CookieLocaleResolver();
+	}
+	@Bean
+	public MailSender mailSender() {
+		JavaMailSenderImpl senderImpl = new JavaMailSenderImpl();
+		senderImpl.setUsername("renanfr1047@gmail.com");//Busca das variáveis de ambiente do projeto (Cujo valor é definido em propriedades)
+		senderImpl.setPassword("Callable");
+		senderImpl.setHost("smtp.gmail.com");
+		senderImpl.setPort(587);
+		Properties properties = new Properties();
+		properties.setProperty("mail.smtp.auth", "true");
+		properties.setProperty("mail.smtp.starttls.enable", "true");//Habilita protocolo TLS
+		senderImpl.setJavaMailProperties(properties);//Configura propriedades adicionais (Valores na documentação)
+		return senderImpl;//Retorna a implementação padrão onde foi injetada a interface
 	}
 }
